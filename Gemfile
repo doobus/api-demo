@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 # Sinatra driver
 gem 'sinatra'
@@ -13,6 +13,8 @@ gem 'activerecord'
 gem 'rake'
 
 gem 'shotgun'
+gem 'oauth2'
+gem 'json'
 
 group :test do
   gem 'faker'
