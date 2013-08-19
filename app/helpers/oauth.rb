@@ -1,16 +1,15 @@
 helpers do
   def oauth_client
-    uid = 'b99d1e8b95eb08e985715a66d7e2b9a6daedb0fbb604f3af867bbae0bd861a51'
-    secret = '525b5b47b0bece41d8e5b42d842a9106cbb19e889a8532b8d370beb6c1c2aaba'
-    OAuth2::Client.new(uid, secret, :site => 'http://localhost:5000/oauth/authorize')
+    raise RuntimeError, "You must set OAUTH_TOKEN and OAUTH_SECRET in your server environment." unless ENV['OAUTH_TOKEN'] && ENV['OAUTH_SECRET']
+    OAuth2::Client.new(ENV['OAUTH_TOKEN'], ENV['OAUTH_SECRET'], :site => 'https://auth.devbootcamp.com')
   end
 
   def dbc_auth
-    oauth_client.auth_code.authorize_url(redirect_uri: 'http://localhost:9393/auth')
+    oauth_client.auth_code.authorize_url(redirect_uri: ENV['OAUTH_REDIRECT'])
   end
 
   def get_oauth_token(code)
-    oauth_client.auth_code.get_token(code, redirect_uri: 'http://localhost:9393/auth')
+    oauth_client.auth_code.get_token(code, redirect_uri: ENV['OAUTH_REDIRECT'])
   end
 
   def get_user(token)
