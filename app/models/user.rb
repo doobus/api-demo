@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  validates :name, presence: true
+  validates :email, presence: true
+  
   has_many :user_challenge_attempts
   has_many :challenges, through: :user_challenge_attempts
   has_many :attempts, through: :user_challenge_attempts
